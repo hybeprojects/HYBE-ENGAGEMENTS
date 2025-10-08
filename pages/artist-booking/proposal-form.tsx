@@ -124,6 +124,7 @@ export default function ProposalFormPage() {
       smallLabel="Official Proposal Submission"
     >
       <form
+        ref={null}
         name="artist-proposal"
         method="POST"
         data-netlify="true"
