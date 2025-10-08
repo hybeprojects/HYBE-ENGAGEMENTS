@@ -1,5 +1,6 @@
 import Head from 'next/head';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Router from 'next/router';
 
 type Props = {
   title: string;
@@ -11,6 +12,22 @@ type Props = {
 
 export default function FormLayout({ title, children, pageHeading, subheading, smallLabel }: Props) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [routeLoading, setRouteLoading] = useState(false);
+
+  useEffect(() => {
+    const handleStart = () => setRouteLoading(true);
+    const handleComplete = () => setRouteLoading(false);
+
+    Router.events.on('routeChangeStart', handleStart);
+    Router.events.on('routeChangeComplete', handleComplete);
+    Router.events.on('routeChangeError', handleComplete);
+
+    return () => {
+      Router.events.off('routeChangeStart', handleStart);
+      Router.events.off('routeChangeComplete', handleComplete);
+      Router.events.off('routeChangeError', handleComplete);
+    };
+  }, []);
 
   const navItems = [
     { label: 'About', href: 'https://hybecorp.com/eng/company/info' },
@@ -154,6 +171,20 @@ export default function FormLayout({ title, children, pageHeading, subheading, s
           </div>
         </div>
       </footer>
+
+      <div
+        aria-hidden={!routeLoading}
+        role="status"
+        className={`fixed inset-0 z-50 flex items-center justify-center bg-white/80 backdrop-blur transition-opacity duration-300 ${routeLoading ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+      >
+        <div className="flex flex-col items-center gap-3">
+          <svg className="h-12 w-12 animate-spin text-hybePurple" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+          </svg>
+          <div className="text-sm font-medium text-gray-700">Redirecting…</div>
+        </div>
+      </div>
     </>
   );
 }
