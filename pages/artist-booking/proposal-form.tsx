@@ -173,8 +173,6 @@ export default function ProposalFormPage() {
         ref={formRef}
         name="artist-proposal"
         method="POST"
-        data-netlify="true"
-        netlify-honeypot="bot-field"
         className="space-y-8"
         action="/success"
         encType="multipart/form-data"
@@ -396,10 +394,6 @@ export default function ProposalFormPage() {
           <div className="mt-4">
             <label className="block text-sm font-medium text-gray-700">Digital Signature (Type your full name)<span className="text-red-600"> *</span></label>
             <input className="input-field" name="digital_signature" required placeholder="Type your full name" />
-          </div>
-          <div className="mt-4">
-            <div data-netlify-recaptcha="true"></div>
-            <p className="helper-text">reCAPTCHA / Anti-Spam enabled</p>
           </div>
         </section>
 
