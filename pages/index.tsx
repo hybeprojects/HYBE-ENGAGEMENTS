@@ -1,3 +1,4 @@
+import type { GetStaticProps } from 'next';
 import Link from 'next/link';
 import FormLayout from '../components/FormLayout';
 
@@ -15,6 +16,20 @@ export default function Home() {
           <Link href="/artist-booking/proposal-form" className="accent-button">Start a Proposal</Link>
         </div>
       </div>
+
+      {/* Hidden registration form to ensure Netlify detects the form at build time */}
+      <form name="artist-proposal" data-netlify="true" netlify-honeypot="bot-field" hidden>
+        <input type="hidden" name="form-name" value="artist-proposal" />
+        <input name="organizer_full_name" />
+        <input name="official_email" type="email" />
+      </form>
     </FormLayout>
   );
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  return {
+    props: {},
+    revalidate: 60, // ISR: rebuild this page in the background at most once per minute
+  };
+};

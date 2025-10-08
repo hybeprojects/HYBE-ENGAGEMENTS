@@ -1,3 +1,4 @@
+import type { GetStaticProps } from 'next';
 import Link from 'next/link';
 import FormLayout from '../components/FormLayout';
 
@@ -18,3 +19,10 @@ export default function Success() {
     </FormLayout>
   );
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  return {
+    props: {},
+    revalidate: 60,
+  };
+};
