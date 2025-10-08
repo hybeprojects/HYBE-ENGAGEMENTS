@@ -44,7 +44,7 @@ export default function FormLayout({ title, children, pageHeading, subheading, s
         <meta name="theme-color" content="#5b21b6" />
       </Head>
 
-      <header className="sticky top-0 z-40 border-b border-gray-100 bg-white/70 backdrop-blur-sm">
+      <header className="sticky top-0 z-40 border-b" style={{ backgroundColor: 'rgba(255,255,255,0.92)', backdropFilter: 'saturate(180%) blur(6px)' }}>
         <div className="container-page py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
