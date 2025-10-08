@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState, useRef } from 'react';
 import FormLayout from '../../components/FormLayout';
 import { formatKRW, formatUSD } from '../../utils/currency';
 import { uploadAsset, uploadDocument } from '../../services/cloudinary';
