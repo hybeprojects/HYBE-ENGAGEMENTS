@@ -141,7 +141,7 @@ export default function ProposalFormPage() {
         </p>
 
         {/* 1️⃣ Organizer Information */}
-        <section className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+        <section className="card">
           <h2 className="section-title">1️⃣ Organizer Information</h2>
           <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
@@ -168,7 +168,7 @@ export default function ProposalFormPage() {
         </section>
 
         {/* 2️⃣ Event Information */}
-        <section className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+        <section className="card">
           <h2 className="section-title">2️⃣ Event Information</h2>
           <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
@@ -203,7 +203,7 @@ export default function ProposalFormPage() {
         </section>
 
         {/* 3️⃣ Financial & Production Details */}
-        <section className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+        <section className="card">
           <h2 className="section-title">3️⃣ Financial & Production Details</h2>
           <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="sm:col-span-2">
@@ -253,7 +253,7 @@ export default function ProposalFormPage() {
         </section>
 
         {/* 4️⃣ Event Summary */}
-        <section className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+        <section className="card">
           <h2 className="section-title">4️⃣ Event Summary</h2>
           <div className="mt-4 grid grid-cols-1 gap-4">
             <div>
@@ -272,7 +272,7 @@ export default function ProposalFormPage() {
         </section>
 
         {/* 5️⃣ Attachments */}
-        <section className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+        <section className="card">
           <h2 className="section-title">5️⃣ Attachments</h2>
           <p className="helper-text">Upload Official Proposal/LOI (PDF, DOCX). Supporting materials (posters, permits, etc.).</p>
           <div className="mt-4 grid grid-cols-1 gap-4">
@@ -315,13 +315,10 @@ export default function ProposalFormPage() {
               )}
             </div>
           </div>
-          {!cloudinaryReady && (
-            <p className="helper-text mt-2">Cloudinary not configured. Files will be submitted directly via Netlify Forms.</p>
-          )}
         </section>
 
         {/* 6️⃣ Authorization & Legal Agreement */}
-        <section className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+        <section className="card">
           <h2 className="section-title">6️⃣ Authorization & Legal Agreement</h2>
           <fieldset className="mt-4 space-y-3">
             <label className="flex items-start gap-3">
