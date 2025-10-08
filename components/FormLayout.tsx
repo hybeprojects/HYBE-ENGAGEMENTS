@@ -70,10 +70,10 @@ export default function FormLayout({ title, children, pageHeading, subheading, s
             <div>
               <h3 className="mb-3 text-sm font-semibold text-gray-900">Legal & Contact</h3>
               <ul className="space-y-2 text-sm text-gray-600">
-                <li><a href="#" className="footer-link">Privacy Policy</a></li>
-                <li><a href="#" className="footer-link">Terms of Use</a></li>
-                <li><a href="#" className="footer-link">Media Inquiries</a></li>
-                <li><a href="#" className="footer-link">Business Contact</a></li>
+                <li><a href="https://hybeinsight.com/policy/privacy?locale=en" className="footer-link" target="_blank" rel="noreferrer noopener">Privacy Policy</a></li>
+                <li><a href="https://hybecorp.com/eng/cookie" className="footer-link" target="_blank" rel="noreferrer noopener">Cookie Policy</a></li>
+                <li><a href="https://hybecorp.com/eng/news/announcements" className="footer-link" target="_blank" rel="noreferrer noopener">Media & Announcements</a></li>
+                <li><a href="https://hybecorp.com/eng/company/business" className="footer-link" target="_blank" rel="noreferrer noopener">Business Contact</a></li>
               </ul>
             </div>
           </div>
