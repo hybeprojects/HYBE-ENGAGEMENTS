@@ -41,17 +41,18 @@ export default function FormLayout({ title, children, pageHeading, subheading, s
       <Head>
         <title>{title}</title>
         <meta name="description" content="Official artist engagement and partnership proposal submission to HYBE Corporation." />
+        <meta name="theme-color" content="#5b21b6" />
       </Head>
 
-      <header className="border-b border-gray-200 bg-white">
+      <header className="sticky top-0 z-40 border-b border-gray-100 bg-white/70 backdrop-blur-sm">
         <div className="container-page py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <a href="/" aria-label="HYBE Home">
+              <a href="/" aria-label="HYBE Home" className="-m-1.5 p-1.5">
                 <img
                   src="https://res.cloudinary.com/dgqhyz67g/image/upload/0f22d319-d299-465c-af1a-c5261c935f9a_removalai_preview_hzdvg2.png"
                   alt="HYBE Corporation"
-                  className="h-8 w-auto"
+                  className="h-10 w-auto"
                 />
               </a>
               {smallLabel ? (
@@ -61,7 +62,7 @@ export default function FormLayout({ title, children, pageHeading, subheading, s
 
             <nav className="hidden md:flex md:items-center md:gap-6 text-sm text-gray-600">
               {navItems.map((n) => (
-                <a key={n.href} href={n.href} target="_blank" rel="noreferrer noopener" className="hover:text-hybePurple">
+                <a key={n.href} href={n.href} target="_blank" rel="noreferrer noopener" className="hover:text-hybePurple transition-colors">
                   {n.label}
                 </a>
               ))}
@@ -106,15 +107,15 @@ export default function FormLayout({ title, children, pageHeading, subheading, s
             </div>
           </div>
 
-          <h1 className="mt-4 text-2xl font-bold text-gray-900 sm:text-3xl">{pageHeading}</h1>
+          <h1 className="mt-4 text-2xl font-semibold text-gray-900 sm:text-3xl tracking-tight">{pageHeading}</h1>
           <p className="mt-2 max-w-3xl text-sm text-gray-600">{subheading}</p>
         </div>
       </header>
 
-      <main className="container-page py-8">{children}</main>
+      <main className="container-page py-10">{children}</main>
 
-      <footer className="mt-12 border-t border-gray-200 bg-white">
-        <div className="container-page py-10">
+      <footer className="mt-12 border-t border-gray-100 bg-white">
+        <div className="container-page py-12">
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
             <div>
               <img
@@ -178,11 +179,11 @@ export default function FormLayout({ title, children, pageHeading, subheading, s
         className={`fixed inset-0 z-50 flex items-center justify-center bg-white/80 backdrop-blur transition-opacity duration-300 ${routeLoading ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
       >
         <div className="flex flex-col items-center gap-3">
-          <svg className="h-12 w-12 animate-spin text-hybePurple" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <svg className="h-14 w-14 animate-spin text-hybePurple" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
           </svg>
-          <div className="text-sm font-medium text-gray-700">Redirecting…</div>
+          <div className="text-sm font-medium text-gray-700">Loading…</div>
         </div>
       </div>
     </>
