@@ -48,9 +48,37 @@ export default function ProposalFormPage() {
   const [docUrl, setDocUrl] = useState<string>('');
   const [supportUploading, setSupportUploading] = useState(false);
   const [supportUrls, setSupportUrls] = useState<string[]>([]);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const cloudinaryReady = Boolean(
     process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME && process.env.NEXT_PUBLIC_CLOUDINARY_UNSIGNED_PRESET
   );
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (submitting) return;
+    setSubmitError(null);
+    setSubmitting(true);
+
+    const form = e.currentTarget;
+    const data = new FormData(form);
+
+    try {
+      const res = await fetch(window.location.pathname, {
+        method: 'POST',
+        body: data,
+      });
+
+      if (!res.ok) throw new Error('Network response was not ok');
+
+      // Redirect to success page after Netlify receives the submission
+      window.location.href = '/success';
+    } catch (err) {
+      console.error(err);
+      setSubmitError('Submission failed. Please try again.');
+      setSubmitting(false);
+    }
+  }
 
   async function handleDocChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -103,6 +131,7 @@ export default function ProposalFormPage() {
         className="space-y-8"
         action="/success"
         encType="multipart/form-data"
+        onSubmit={handleSubmit}
       >
         <input type="hidden" name="form-name" value="artist-proposal" />
         <p className="hidden">
@@ -112,7 +141,7 @@ export default function ProposalFormPage() {
         </p>
 
         {/* 1️⃣ Organizer Information */}
-        <section className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+        <section className="card">
           <h2 className="section-title">1️⃣ Organizer Information</h2>
           <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
@@ -139,7 +168,7 @@ export default function ProposalFormPage() {
         </section>
 
         {/* 2️⃣ Event Information */}
-        <section className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+        <section className="card">
           <h2 className="section-title">2️⃣ Event Information</h2>
           <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
@@ -174,7 +203,7 @@ export default function ProposalFormPage() {
         </section>
 
         {/* 3️⃣ Financial & Production Details */}
-        <section className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+        <section className="card">
           <h2 className="section-title">3️⃣ Financial & Production Details</h2>
           <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="sm:col-span-2">
@@ -224,7 +253,7 @@ export default function ProposalFormPage() {
         </section>
 
         {/* 4️⃣ Event Summary */}
-        <section className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+        <section className="card">
           <h2 className="section-title">4️⃣ Event Summary</h2>
           <div className="mt-4 grid grid-cols-1 gap-4">
             <div>
@@ -243,7 +272,7 @@ export default function ProposalFormPage() {
         </section>
 
         {/* 5️⃣ Attachments */}
-        <section className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+        <section className="card">
           <h2 className="section-title">5️⃣ Attachments</h2>
           <p className="helper-text">Upload Official Proposal/LOI (PDF, DOCX). Supporting materials (posters, permits, etc.).</p>
           <div className="mt-4 grid grid-cols-1 gap-4">
@@ -286,13 +315,10 @@ export default function ProposalFormPage() {
               )}
             </div>
           </div>
-          {!cloudinaryReady && (
-            <p className="helper-text mt-2">Cloudinary not configured. Files will be submitted directly via Netlify Forms.</p>
-          )}
         </section>
 
         {/* 6️⃣ Authorization & Legal Agreement */}
-        <section className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+        <section className="card">
           <h2 className="section-title">6️⃣ Authorization & Legal Agreement</h2>
           <fieldset className="mt-4 space-y-3">
             <label className="flex items-start gap-3">
@@ -332,8 +358,18 @@ export default function ProposalFormPage() {
 
         {/* 7️⃣ Submission */}
         <div className="flex items-center justify-between">
-          <p className="helper-text">All submissions are reviewed under our corporate engagement policy.</p>
-          <button type="submit" className="accent-button">Submit Proposal</button>
+          <div>
+            <p className="helper-text">All submissions are reviewed under our corporate engagement policy.</p>
+            {submitError && <p className="mt-2 text-sm text-red-600">{submitError}</p>}
+          </div>
+          <button type="submit" className="accent-button" disabled={submitting}>
+            {submitting ? (
+              <span className="inline-flex items-center gap-2">
+                <svg className="h-4 w-4 animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path></svg>
+                Submitting…
+              </span>
+            ) : 'Submit Proposal'}
+          </button>
         </div>
       </form>
     </FormLayout>
