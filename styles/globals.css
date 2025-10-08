@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --accent: #5b21b6;
+}
+
+html, body, #__next {
+  height: 100%;
+}
+
+body {
+  @apply bg-white text-gray-800 antialiased;
+}
+
+.container-page {
+  @apply mx-auto max-w-4xl px-4 sm:px-6 lg:px-8;
+}
+
+.input-field {
+  @apply w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 shadow-sm focus:border-hybePurple focus:outline-none focus:ring-2 focus:ring-hybePurple/30;
+}
+
+.select-field {
+  @apply w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-gray-900 shadow-sm focus:border-hybePurple focus:outline-none focus:ring-2 focus:ring-hybePurple/30;
+}
+
+.textarea-field {
+  @apply w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 shadow-sm focus:border-hybePurple focus:outline-none focus:ring-2 focus:ring-hybePurple/30;
+}
+
+.section-title {
+  @apply text-lg font-semibold text-gray-900;
+}
+
+.helper-text {
+  @apply mt-1 text-sm text-gray-500;
+}
+
+.accent-button {
+  @apply inline-flex items-center justify-center rounded-xl bg-hybePurple px-5 py-3 font-medium text-white shadow-sm transition-colors hover:bg-purple-900 focus:outline-none focus:ring-2 focus:ring-hybePurple/30;
+}
+
+.badge-label {
+  @apply inline-flex items-center rounded-full bg-purple-50 px-3 py-1 text-xs font-medium text-hybePurple ring-1 ring-inset ring-purple-200;
+}
