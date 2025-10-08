@@ -13,7 +13,6 @@ export default function Home() {
         <p className="text-gray-700">Welcome to the HYBE official proposal portal. Verified organizers, agencies, and government representatives may submit event or partnership proposals for consideration.</p>
         <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
           <Link href="/artist-booking/proposal-form" className="accent-button">Start a Proposal</Link>
-          <Link href="/success" className="text-sm text-gray-600 underline">View submission confirmation (example)</Link>
         </div>
       </div>
     </FormLayout>
