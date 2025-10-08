@@ -60,10 +60,10 @@ export default function FormLayout({ title, children, pageHeading, subheading, s
             <div>
               <h3 className="mb-3 text-sm font-semibold text-gray-900">Explore</h3>
               <ul className="space-y-2 text-sm text-gray-600">
-                <li><a href="#" className="footer-link">About HYBE</a></li>
-                <li><a href="#" className="footer-link">Artists</a></li>
-                <li><a href="#" className="footer-link">News</a></li>
-                <li><a href="#" className="footer-link">Careers</a></li>
+                <li><a href="https://hybecorp.com/eng/company/info" className="footer-link" target="_blank" rel="noreferrer noopener">About HYBE</a></li>
+                <li><a href="https://hybecorp.com/eng/company/artist" className="footer-link" target="_blank" rel="noreferrer noopener">Artists</a></li>
+                <li><a href="https://hybecorp.com/eng/news/news" className="footer-link" target="_blank" rel="noreferrer noopener">News</a></li>
+                <li><a href="https://careers.hybecorp.com/?locale=en_US" className="footer-link" target="_blank" rel="noreferrer noopener">Careers</a></li>
               </ul>
             </div>
 
