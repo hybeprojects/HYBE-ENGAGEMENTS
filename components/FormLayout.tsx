@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import React from 'react';
+import React, { useState } from 'react';
 
 type Props = {
   title: string;
@@ -10,6 +10,15 @@ type Props = {
 };
 
 export default function FormLayout({ title, children, pageHeading, subheading, smallLabel }: Props) {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const navItems = [
+    { label: 'About', href: 'https://hybecorp.com/eng/company/info' },
+    { label: 'Artists', href: 'https://hybecorp.com/eng/company/artist' },
+    { label: 'News', href: 'https://hybecorp.com/eng/news/news' },
+    { label: 'Careers', href: 'https://careers.hybecorp.com/?locale=en_US' },
+  ];
+
   return (
     <>
       <Head>
@@ -18,24 +27,66 @@ export default function FormLayout({ title, children, pageHeading, subheading, s
       </Head>
 
       <header className="border-b border-gray-200 bg-white">
-        <div className="container-page py-6">
-          <div className="flex items-center justify-between gap-4">
+        <div className="container-page py-4">
+          <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <img
-                src="https://res.cloudinary.com/dgqhyz67g/image/upload/0f22d319-d299-465c-af1a-c5261c935f9a_removalai_preview_hzdvg2.png"
-                alt="HYBE Corporation"
-                className="h-8 w-auto"
-              />
+              <a href="/" aria-label="HYBE Home">
+                <img
+                  src="https://res.cloudinary.com/dgqhyz67g/image/upload/0f22d319-d299-465c-af1a-c5261c935f9a_removalai_preview_hzdvg2.png"
+                  alt="HYBE Corporation"
+                  className="h-8 w-auto"
+                />
+              </a>
               {smallLabel ? (
-                <span className="badge-label">{smallLabel}</span>
+                <span className="badge-label hidden sm:inline-flex">{smallLabel}</span>
               ) : null}
             </div>
-            <nav className="hidden items-center gap-6 text-sm text-gray-600 md:flex">
-              <a href="#" className="hover:text-hybePurple">About</a>
-              <a href="#" className="hover:text-hybePurple">Artists</a>
-              <a href="#" className="hover:text-hybePurple">Careers</a>
-              <a href="#" className="hover:text-hybePurple">Contact</a>
+
+            <nav className="hidden md:flex md:items-center md:gap-6 text-sm text-gray-600">
+              {navItems.map((n) => (
+                <a key={n.href} href={n.href} target="_blank" rel="noreferrer noopener" className="hover:text-hybePurple">
+                  {n.label}
+                </a>
+              ))}
+              <a href="https://hybecorp.com/eng/company/business" target="_blank" rel="noreferrer noopener" className="ml-4 inline-flex items-center rounded-md border border-gray-200 px-3 py-1 text-sm text-gray-700 hover:bg-gray-50">
+                Contact
+              </a>
             </nav>
+
+            <div className="md:hidden">
+              <button
+                aria-expanded={menuOpen}
+                aria-label="Open navigation menu"
+                onClick={() => setMenuOpen((s) => !s)}
+                className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-gray-200 text-gray-600 hover:bg-gray-50"
+              >
+                <svg className={`${menuOpen ? 'hidden' : 'block'} h-5 w-5`} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <svg className={`${menuOpen ? 'block' : 'hidden'} h-5 w-5`} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6 18L18 6M6 6l12 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div className={`mt-3 md:hidden ${menuOpen ? 'block' : 'hidden'}`}>
+            <div className="rounded-lg border border-gray-100 bg-white p-4 shadow-sm">
+              <ul className="space-y-3">
+                {navItems.map((n) => (
+                  <li key={n.href}>
+                    <a onClick={() => setMenuOpen(false)} href={n.href} target="_blank" rel="noreferrer noopener" className="block text-gray-800 hover:text-hybePurple">
+                      {n.label}
+                    </a>
+                  </li>
+                ))}
+                <li>
+                  <a onClick={() => setMenuOpen(false)} href="https://hybecorp.com/eng/company/business" target="_blank" rel="noreferrer noopener" className="block text-gray-800 hover:text-hybePurple">
+                    Contact
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
 
           <h1 className="mt-4 text-2xl font-bold text-gray-900 sm:text-3xl">{pageHeading}</h1>
