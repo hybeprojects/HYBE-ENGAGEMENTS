@@ -54,6 +54,52 @@ export default function ProposalFormPage() {
     process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME && process.env.NEXT_PUBLIC_CLOUDINARY_UNSIGNED_PRESET
   );
 
+  const formRef = useRef<HTMLFormElement | null>(null);
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [confirmData, setConfirmData] = useState<Record<string, string>>({});
+
+  function handleOpenConfirm() {
+    setSubmitError(null);
+    const form = formRef.current;
+    if (!form) return;
+    // Trigger native validation UI if invalid
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+    const fd = new FormData(form);
+    const summaryFields = [
+      'organizer_full_name',
+      'organization_name',
+      'official_email',
+      'contact_number',
+      'designation',
+      'event_name',
+      'event_type',
+      'proposed_dates',
+      'venue_location',
+      'audience_size',
+      'estimated_budget_krw',
+      'estimated_budget_usd',
+      'talent_fee_range',
+      'responsibility',
+      'sponsorship',
+      'event_description',
+      'goals',
+      'other_artists_brands',
+      'digital_signature',
+    ];
+    const data: Record<string, string> = {};
+    for (const k of summaryFields) {
+      const v = fd.get(k);
+      data[k] = typeof v === 'string' ? v : v instanceof File ? (v as File).name : (v == null ? '' : String(v));
+    }
+    data['official_proposal_url'] = docUrl || '';
+    data['supporting_material_urls'] = supportUrls.join(', ');
+    setConfirmData(data);
+    setConfirmOpen(true);
+  }
+
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (submitting) return;
