@@ -45,3 +45,17 @@ body {
 .badge-label {
   @apply inline-flex items-center rounded-full bg-purple-50 px-3 py-1 text-xs font-medium text-hybePurple ring-1 ring-inset ring-purple-200;
 }
+
+/* Footer and site-wide link styles */
+.footer-link {
+  @apply inline-block text-gray-600 hover:text-hybePurple transition-colors;
+}
+
+.footer-social {
+  @apply inline-flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 text-gray-600 hover:bg-hybePurple hover:text-white transition-colors;
+}
+
+/* Accessibility tweaks */
+a, button {
+  @apply focus:outline-none focus:ring-2 focus:ring-hybePurple/30;
+}
