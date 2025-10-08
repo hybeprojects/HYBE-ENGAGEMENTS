@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Forms Manifest</title>
+  <meta name="robots" content="noindex" />
+  <style>form{display:none!important;}</style>
+</head>
+<body>
+  <!-- Netlify Forms registration for Next.js Runtime v5 (OpenNext) -->
+  <form name="artist-proposal" method="POST" data-netlify="true" enctype="multipart/form-data">
+    <input type="hidden" name="form-name" value="artist-proposal" />
+    <input name="organizer_full_name" />
+    <input name="organization_name" />
+    <input name="official_email" type="email" />
+    <input name="contact_number" />
+    <input name="designation" />
+    <input name="event_name" />
+    <input name="event_type" />
+    <input name="proposed_dates" />
+    <input name="venue_location" />
+    <input name="audience_size" type="number" />
+    <input name="estimated_budget_krw" />
+    <input name="estimated_budget_usd" />
+    <input name="talent_fee_range" />
+    <input name="responsibility" />
+    <textarea name="sponsorship"></textarea>
+    <textarea name="event_description"></textarea>
+    <textarea name="goals"></textarea>
+    <input name="other_artists_brands" />
+    <input name="official_proposal" type="file" />
+    <input name="official_proposal_url" />
+    <input name="supporting_materials" type="file" multiple />
+    <input name="supporting_material_urls" />
+    <input name="auth_agreement" type="checkbox" />
+    <input name="confidentiality_ack" type="checkbox" />
+    <input name="payment_terms" type="checkbox" />
+    <input name="consent_to_contact" type="checkbox" />
+    <input name="digital_signature" />
+  </form>
+</body>
+</html>
