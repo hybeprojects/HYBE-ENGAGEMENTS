@@ -66,7 +66,7 @@ export default function FormLayout({ title, children, pageHeading, subheading, s
                   {n.label}
                 </a>
               ))}
-              <a href="https://hybecorp.com/eng/company/business" target="_blank" rel="noreferrer noopener" className="ml-4 inline-flex items-center rounded-md border border-gray-200 px-3 py-1 text-sm text-gray-700 hover:bg-gray-50">
+              <a href="https://hybecorp.com/eng/company/business" target="_blank" rel="noreferrer noopener" className="ml-4 inline-flex items-center h-11 rounded-full px-4 text-sm text-white shadow-sm" style={{ backgroundImage: 'linear-gradient(90deg, var(--accent-2), var(--accent))' }}>
                 Contact
               </a>
             </nav>
@@ -89,7 +89,7 @@ export default function FormLayout({ title, children, pageHeading, subheading, s
           </div>
 
           <div className={`mt-3 md:hidden ${menuOpen ? 'block' : 'hidden'}`}>
-            <div className="rounded-lg border border-gray-100 bg-white p-4 shadow-sm">
+            <div className="rounded-lg border border-gray-100 p-4 shadow-lg" style={{ background: 'rgba(255,255,255,0.96)' }}>
               <ul className="space-y-3">
                 {navItems.map((n) => (
                   <li key={n.href}>
