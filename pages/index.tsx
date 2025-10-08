@@ -17,12 +17,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Hidden registration form to ensure Netlify detects the form at build time */}
-      <form name="artist-proposal" data-netlify="true" netlify-honeypot="bot-field" hidden>
-        <input type="hidden" name="form-name" value="artist-proposal" />
-        <input name="organizer_full_name" />
-        <input name="official_email" type="email" />
-      </form>
     </FormLayout>
   );
 }
