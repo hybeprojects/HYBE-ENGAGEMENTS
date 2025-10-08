@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState, useRef } from 'react';
 import FormLayout from '../../components/FormLayout';
 import { formatKRW, formatUSD } from '../../utils/currency';
 import { uploadAsset, uploadDocument } from '../../services/cloudinary';
@@ -53,6 +53,52 @@ export default function ProposalFormPage() {
   const cloudinaryReady = Boolean(
     process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME && process.env.NEXT_PUBLIC_CLOUDINARY_UNSIGNED_PRESET
   );
+
+  const formRef = useRef<HTMLFormElement | null>(null);
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [confirmData, setConfirmData] = useState<Record<string, string>>({});
+
+  function handleOpenConfirm() {
+    setSubmitError(null);
+    const form = formRef.current;
+    if (!form) return;
+    // Trigger native validation UI if invalid
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+    const fd = new FormData(form);
+    const summaryFields = [
+      'organizer_full_name',
+      'organization_name',
+      'official_email',
+      'contact_number',
+      'designation',
+      'event_name',
+      'event_type',
+      'proposed_dates',
+      'venue_location',
+      'audience_size',
+      'estimated_budget_krw',
+      'estimated_budget_usd',
+      'talent_fee_range',
+      'responsibility',
+      'sponsorship',
+      'event_description',
+      'goals',
+      'other_artists_brands',
+      'digital_signature',
+    ];
+    const data: Record<string, string> = {};
+    for (const k of summaryFields) {
+      const v = fd.get(k);
+      data[k] = typeof v === 'string' ? v : v instanceof File ? (v as File).name : (v == null ? '' : String(v));
+    }
+    data['official_proposal_url'] = docUrl || '';
+    data['supporting_material_urls'] = supportUrls.join(', ');
+    setConfirmData(data);
+    setConfirmOpen(true);
+  }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -124,6 +170,7 @@ export default function ProposalFormPage() {
       smallLabel="Official Proposal Submission"
     >
       <form
+        ref={formRef}
         name="artist-proposal"
         method="POST"
         data-netlify="true"
@@ -362,15 +409,38 @@ export default function ProposalFormPage() {
             <p className="helper-text">All submissions are reviewed under our corporate engagement policy.</p>
             {submitError && <p className="mt-2 text-sm text-red-600">{submitError}</p>}
           </div>
-          <button type="submit" className="accent-button" disabled={submitting}>
+          <button type="button" className="accent-button" disabled={submitting} onClick={handleOpenConfirm}>
             {submitting ? (
               <span className="inline-flex items-center gap-2">
                 <svg className="h-4 w-4 animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path></svg>
                 Submitting…
               </span>
-            ) : 'Submit Proposal'}
+            ) : 'Review & Submit Proposal'}
           </button>
         </div>
+
+        {confirmOpen && (
+          <div role="dialog" aria-modal="true" className="fixed inset-0 z-50 flex items-center justify-center">
+            <div className="fixed inset-0 bg-black/40" onClick={() => setConfirmOpen(false)} />
+            <div className="relative max-w-2xl w-full mx-4 bg-white rounded-xl p-6 shadow-lg">
+              <h3 className="text-lg font-semibold mb-4">Confirm your submission</h3>
+              <div className="max-h-64 overflow-auto space-y-2 text-sm text-gray-700">
+                {Object.entries(confirmData).map(([k,v]) => (
+                  <div key={k} className="flex justify-between border-b py-2">
+                    <div className="font-medium text-gray-600">{k.replace(/_/g,' ')}</div>
+                    <div className="text-right break-words ml-4">{v}</div>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-6 flex justify-end gap-3">
+                <button type="button" className="btn-secondary" onClick={() => setConfirmOpen(false)}>Edit</button>
+                <button type="button" className="accent-button" onClick={() => { setConfirmOpen(false); formRef.current?.requestSubmit(); }} disabled={submitting}>
+                  {submitting ? 'Submitting…' : 'Confirm & Submit'}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </form>
     </FormLayout>
   );

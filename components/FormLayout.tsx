@@ -40,8 +40,26 @@ export default function FormLayout({ title, children, pageHeading, subheading, s
     <>
       <Head>
         <title>{title}</title>
-        <meta name="description" content="Official artist engagement and partnership proposal submission to HYBE Corporation." />
+        <meta name="description" content={subheading || "Official artist engagement and partnership proposal submission to HYBE Corporation."} />
         <meta name="theme-color" content="#5b21b6" />
+
+        {/* Official HYBE SEO / Social meta tags */}
+        <link rel="canonical" href={process.env.NEXT_PUBLIC_SITE_URL || 'https://hybecorp.com'} />
+        <meta name="robots" content="index,follow" />
+        <meta name="keywords" content="HYBE, artist management, proposal, partnership, event booking, K-pop, entertainment" />
+
+        <meta property="og:site_name" content="HYBE Corporation" />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={subheading || 'Official artist engagement and partnership proposal submission to HYBE Corporation.'} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={process.env.NEXT_PUBLIC_SITE_URL || 'https://hybecorp.com'} />
+        <meta property="og:image" content="https://res.cloudinary.com/dgqhyz67g/image/upload/0f22d319-d299-465c-af1a-c5261c935f9a_removalai_preview_hzdvg2.png" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@HYBE_Corp" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={subheading || 'Official artist engagement and partnership proposal submission to HYBE Corporation.'} />
+        <meta name="twitter:image" content="https://res.cloudinary.com/dgqhyz67g/image/upload/0f22d319-d299-465c-af1a-c5261c935f9a_removalai_preview_hzdvg2.png" />
       </Head>
 
       <header className="sticky top-0 z-40 border-b" style={{ backgroundColor: 'rgba(255,255,255,0.92)', backdropFilter: 'saturate(180%) blur(6px)' }}>
