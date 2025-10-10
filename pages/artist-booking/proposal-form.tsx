@@ -100,31 +100,6 @@ export default function ProposalFormPage() {
     setConfirmOpen(true);
   }
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    if (submitting) return;
-    setSubmitError(null);
-    setSubmitting(true);
-
-    const form = e.currentTarget;
-    const data = new FormData(form);
-
-    try {
-      const res = await fetch(window.location.pathname, {
-        method: 'POST',
-        body: data,
-      });
-
-      if (!res.ok) throw new Error('Network response was not ok');
-
-      // Redirect to success page after Netlify receives the submission
-      window.location.href = '/success';
-    } catch (err) {
-      console.error(err);
-      setSubmitError('Submission failed. Please try again.');
-      setSubmitting(false);
-    }
-  }
 
   async function handleDocChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -176,7 +151,8 @@ export default function ProposalFormPage() {
         className="space-y-8"
         action="/success"
         encType="multipart/form-data"
-        onSubmit={handleSubmit}
+        data-netlify="true"
+        netlify-honeypot="bot-field"
       >
         <input type="hidden" name="form-name" value="artist-proposal" />
         <p className="hidden">
@@ -428,7 +404,7 @@ export default function ProposalFormPage() {
               </div>
               <div className="mt-6 flex justify-end gap-3">
                 <button type="button" className="btn-secondary" onClick={() => setConfirmOpen(false)}>Edit</button>
-                <button type="button" className="accent-button" onClick={() => { setConfirmOpen(false); formRef.current?.requestSubmit(); }} disabled={submitting}>
+                <button type="button" className="accent-button" onClick={() => { setSubmitting(true); setConfirmOpen(false); formRef.current?.requestSubmit(); }} disabled={submitting}>
                   {submitting ? 'Submitting…' : 'Confirm & Submit'}
                 </button>
               </div>
